@@ -1,5 +1,5 @@
 {
-  "description": "优选集市 · 电商小程序示例项目",
+  "description": "优选集市 · 电商小程序（codex-bmall-applet）",
   "packOptions": {
     "ignore": [],
     "include": []
@@ -40,15 +40,19 @@
     "disableUseStrict": false,
     "minifyWXML": true,
     "showES6CompileOption": false,
-    "useCompilerPlugins": false
+    "useCompilerPlugins": false,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "condition": false
   },
   "compileType": "miniprogram",
   "libVersion": "3.17.2",
   "appid": "wx30086f04b3074c3f",
-  "projectname": "ecom-miniprogram",
+  "projectname": "codex-bmall-applet",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "simulatorPluginLibVersion": {}
 }
