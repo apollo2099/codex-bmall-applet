@@ -1,0 +1,157 @@
+<view class="page detail" wx:if="{{goods}}">
+  <!-- 主图 -->
+  <view class="hero" style="background: {{goods.tint}}">
+    <image wx:if="{{goods.cover}}" class="hero__img" src="{{goods.cover}}" mode="aspectFill" />
+    <text wx:else class="hero__emoji">{{goods.emoji}}</text>
+    <view class="hero__sales">已售 {{salesText}} 件</view>
+  </view>
+
+  <!-- 价格与标题 -->
+  <view class="card panel">
+    <view class="price-row">
+      <view class="price-main">
+        <text class="price-symbol">¥</text>
+        <text class="price-int">{{priceInteger}}</text>
+        <text class="price-dec">.{{priceDecimal}}</text>
+      </view>
+      <text class="price-origin">¥{{goods.originPrice}}</text>
+      <view class="save-tag">省 {{goods.originPrice - goods.price}} 元</view>
+    </view>
+
+    <view class="title">{{goods.title}}</view>
+    <view class="subtitle">{{goods.subTitle}}</view>
+
+    <view class="tag-row">
+      <text class="tag" wx:for="{{goods.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 服务保障 -->
+  <view class="card panel service">
+    <view class="service__item" wx:for="{{serviceList}}" wx:key="text">
+      <view class="icon icon--{{item.icon}} service__icon"></view>
+      <text class="service__text">{{item.text}}</text>
+    </view>
+  </view>
+
+  <!-- 规格 -->
+  <view class="card panel">
+    <view class="cell cell--inner" bindtap="openSku" data-mode="cart">
+      <text class="cell__label">选择规格</text>
+      <text class="cell__value">{{specText}}</text>
+      <view class="arrow"></view>
+    </view>
+  </view>
+
+  <!-- 商品详情 -->
+  <view class="card panel">
+    <view class="section-title">商品详情</view>
+    <view class="desc">{{goods.detail.desc}}</view>
+
+    <view class="highlight">
+      <view class="highlight__item" wx:for="{{goods.detail.highlights}}" wx:key="*this">
+        <text class="highlight__dot">✓</text>
+        <text>{{item}}</text>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="params">
+      <view class="params__row" wx:for="{{goods.detail.params}}" wx:key="label">
+        <text class="params__label">{{item.label}}</text>
+        <text class="params__value">{{item.value}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 相关推荐 -->
+  <view class="section" wx:if="{{related.length}}">
+    <view class="section-title">相关推荐</view>
+    <view class="related">
+      <goods-card
+        wx:for="{{related}}"
+        wx:key="id"
+        goods="{{item}}"
+        layout="grid"
+        class="related__item"
+        bind:tap="onRelatedTap"
+        bind:add="onAddRelated"
+      />
+    </view>
+  </view>
+
+  <view class="detail__placeholder"></view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <view class="action-bar__icon" bindtap="onService">
+      <view class="icon icon--chat action-bar__glyph"></view>
+      <text class="action-bar__label">客服</text>
+    </view>
+    <view class="action-bar__icon" bindtap="onFavor">
+      <view class="icon icon--{{favorited ? 'heart-filled' : 'heart'}} action-bar__glyph {{favorited ? 'is-active' : ''}}"></view>
+      <text class="action-bar__label">收藏</text>
+    </view>
+    <view class="action-bar__icon" bindtap="onGoCart">
+      <view class="icon icon--cart action-bar__glyph"></view>
+      <text class="action-bar__label">购物车</text>
+      <text class="action-bar__badge" wx:if="{{cartCount > 0}}">{{cartCount}}</text>
+    </view>
+    <view class="action-bar__btn action-bar__btn--plain" bindtap="openSku" data-mode="cart">加入购物车</view>
+    <view class="action-bar__btn action-bar__btn--primary" bindtap="openSku" data-mode="buy">立即购买</view>
+  </view>
+
+  <!-- 规格弹层 -->
+  <view class="sku-mask {{showSku ? 'is-show' : ''}}" bindtap="closeSku">
+    <view class="sku" catchtap="noop">
+      <view class="sku__head">
+        <view class="sku__media" style="background: {{goods.tint}}">
+          <text>{{goods.emoji}}</text>
+        </view>
+        <view class="sku__info">
+          <view class="sku__price">
+            <text class="price-symbol">¥</text>
+            <text class="sku__price-num">{{priceInteger}}</text>
+            <text class="sku__price-dec">.{{priceDecimal}}</text>
+          </view>
+          <view class="sku__stock">库存 {{goods.stock}} 件</view>
+          <view class="sku__selected">已选：{{specText}}</view>
+        </view>
+        <view class="sku__close" bindtap="closeSku">✕</view>
+      </view>
+
+      <scroll-view class="sku__body" scroll-y>
+        <view class="sku__group" wx:for="{{goods.specs}}" wx:key="name">
+          <view class="sku__group-name">{{item.name}}</view>
+          <view class="sku__values">
+            <view
+              class="sku__value {{selected[item.name] === value ? 'is-active' : ''}}"
+              wx:for="{{item.values}}"
+              wx:for-item="value"
+              wx:key="*this"
+              data-name="{{item.name}}"
+              data-value="{{value}}"
+              bindtap="onSelectSpec"
+            >
+              {{value}}
+            </view>
+          </view>
+        </view>
+
+        <view class="sku__group sku__group--row">
+          <view class="sku__group-name">购买数量</view>
+          <stepper value="{{count}}" min="{{1}}" max="{{goods.stock}}" size="normal" bind:change="onCountChange" />
+        </view>
+      </scroll-view>
+
+      <view class="sku__footer">
+        <view class="btn-primary sku__confirm" bindtap="onConfirmSku">
+          {{skuMode === 'buy' ? '立即购买' : '加入购物车'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="loading-text" wx:else>商品加载中…</view>

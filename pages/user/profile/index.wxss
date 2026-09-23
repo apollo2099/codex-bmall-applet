@@ -1,0 +1,63 @@
+.panel {
+  padding: 28rpx;
+}
+
+.panel__title {
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.avatar-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.avatar-grid__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100rpx;
+  height: 100rpx;
+  margin: 0 20rpx 20rpx 0;
+  border: 1rpx solid var(--line-1);
+  border-radius: 50%;
+  background: var(--surface-2);
+  font-size: 44rpx;
+}
+
+.avatar-grid__item.is-active {
+  border: 2rpx solid var(--ink-1);
+  background: #fff;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  min-height: 104rpx;
+  border-bottom: 1rpx solid var(--line-2);
+}
+
+.field:last-child {
+  border-bottom: none;
+}
+
+.field__label {
+  width: 180rpx;
+  color: var(--ink-3);
+  font-size: 27rpx;
+}
+
+.field__input {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.field__value {
+  color: var(--ink-1);
+  font-size: 27rpx;
+}
+
+.btn-primary {
+  height: 88rpx;
+}

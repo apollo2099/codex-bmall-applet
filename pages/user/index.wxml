@@ -1,0 +1,88 @@
+<view class="page page-with-bar">
+  <!-- 用户头部 -->
+  <view class="profile-header">
+    <view class="profile-header__row" bindtap="onProfileTap">
+      <view class="avatar">{{isLogin ? (user.avatarEmoji || '🙂') : '👤'}}</view>
+      <view class="profile-header__info">
+        <view class="profile-header__name">{{isLogin ? user.nickname : '点击登录'}}</view>
+        <view class="profile-header__sub">
+          {{isLogin ? user.level + ' · ID ' + user.id : '登录后可查看订单与优惠券'}}
+        </view>
+      </view>
+      <view class="arrow arrow--light"></view>
+    </view>
+
+    <view class="stats">
+      <view class="stats__item">
+        <text class="stats__num">{{isLogin ? user.points : '—'}}</text>
+        <text class="stats__label">积分</text>
+      </view>
+      <view class="stats__item">
+        <text class="stats__num">{{isLogin ? user.couponCount : '—'}}</text>
+        <text class="stats__label">优惠券</text>
+      </view>
+      <view class="stats__item">
+        <text class="stats__num">{{isLogin ? user.balance : '—'}}</text>
+        <text class="stats__label">余额</text>
+      </view>
+      <view class="stats__item">
+        <text class="stats__num">{{isLogin ? user.favorites : '—'}}</text>
+        <text class="stats__label">收藏</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的订单 -->
+  <view class="card section order-card">
+    <view class="order-card__head">
+      <text class="order-card__title">我的订单</text>
+      <text class="order-card__more" data-key="all" bindtap="onOrderEntry">查看全部 ›</text>
+    </view>
+    <view class="order-card__entries">
+      <view
+        class="order-card__entry"
+        wx:for="{{orderEntries}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onOrderEntry"
+      >
+        <view class="order-card__icon-wrap">
+          <view class="icon icon--{{item.icon}} order-card__icon"></view>
+          <text class="order-card__badge" wx:if="{{item.key !== 'all' && counts[item.key] > 0}}">{{counts[item.key]}}</text>
+        </view>
+        <text class="order-card__label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 会员权益 -->
+  <view class="card section benefit">
+    <view class="benefit__item">
+      <view class="icon icon--gift benefit__icon"></view>
+      <view>
+        <view class="benefit__title">新人礼包</view>
+        <view class="benefit__desc">首单立减 20 元</view>
+      </view>
+    </view>
+    <view class="benefit__item">
+      <view class="icon icon--arrow-up benefit__icon"></view>
+      <view>
+        <view class="benefit__title">极速退款</view>
+        <view class="benefit__desc">退货包运费</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 工具列表 -->
+  <view class="card section tools">
+    <view class="cell" wx:for="{{tools}}" wx:key="key" data-key="{{item.key}}" bindtap="onToolTap">
+      <view class="icon icon--{{item.icon}} tools__icon"></view>
+      <text class="cell__label">{{item.label}}</text>
+      <view class="arrow"></view>
+    </view>
+  </view>
+
+  <view class="section" wx:if="{{isLogin}}">
+    <view class="btn-plain" bindtap="onLogout">退出登录</view>
+  </view>
+</view>

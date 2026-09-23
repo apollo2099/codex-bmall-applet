@@ -1,0 +1,173 @@
+.profile-header {
+  padding: 32rpx 32rpx 0;
+  background: #fff;
+  border-bottom: 1rpx solid var(--line-1);
+}
+
+.profile-header__row {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 0 28rpx;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 116rpx;
+  height: 116rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: 50%;
+  background: var(--surface-2);
+  font-size: 52rpx;
+}
+
+.profile-header__info {
+  flex: 1;
+  padding-left: 24rpx;
+}
+
+.profile-header__name {
+  color: var(--ink-1);
+  font-size: 36rpx;
+  font-weight: 600;
+  letter-spacing: -0.4rpx;
+}
+
+.profile-header__sub {
+  margin-top: 8rpx;
+  color: var(--ink-3);
+  font-size: 23rpx;
+}
+
+.arrow--light::after {
+  border-color: var(--ink-4);
+}
+
+.stats {
+  display: flex;
+  padding: 28rpx 0;
+  margin-bottom: -1rpx;
+  border-top: 1rpx solid var(--line-1);
+}
+
+.stats__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats__num {
+  color: var(--ink-1);
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.stats__label {
+  margin-top: 6rpx;
+  color: var(--ink-4);
+  font-size: 22rpx;
+}
+
+.order-card {
+  padding: 28rpx;
+}
+
+.order-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.order-card__title {
+  font-size: 30rpx;
+  font-weight: 600;
+  letter-spacing: -0.2rpx;
+}
+
+.order-card__more {
+  color: var(--link);
+  font-size: 23rpx;
+}
+
+.order-card__entries {
+  display: flex;
+}
+
+.order-card__entry {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order-card__icon-wrap {
+  position: relative;
+  line-height: 1;
+}
+
+.order-card__icon {
+  width: 46rpx;
+  height: 46rpx;
+}
+
+.order-card__badge {
+  position: absolute;
+  top: -8rpx;
+  right: -24rpx;
+  min-width: 30rpx;
+  height: 30rpx;
+  padding: 0 8rpx;
+  border-radius: 15rpx;
+  background: var(--figma-orange);
+  color: #fff;
+  font-size: 20rpx;
+  line-height: 30rpx;
+  text-align: center;
+}
+
+.order-card__label {
+  margin-top: 14rpx;
+  color: var(--ink-2);
+  font-size: 23rpx;
+}
+
+.benefit {
+  display: flex;
+  padding: 24rpx 0;
+}
+
+.benefit__item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit__icon {
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 14rpx;
+}
+
+.benefit__title {
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.benefit__desc {
+  color: var(--ink-4);
+  font-size: 21rpx;
+}
+
+.tools {
+  padding: 0 28rpx;
+}
+
+.tools__icon {
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 20rpx;
+}

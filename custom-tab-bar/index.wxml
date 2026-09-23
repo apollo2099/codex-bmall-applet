@@ -1,0 +1,17 @@
+<view class="tab-bar">
+  <view
+    class="tab-bar__item {{selected === index ? 'is-active' : ''}}"
+    wx:for="{{list}}"
+    wx:key="pagePath"
+    data-path="{{item.pagePath}}"
+    data-index="{{index}}"
+    bindtap="switchTab"
+  >
+    <view class="tab-bar__icon-wrap {{selected === index ? 'is-active' : ''}}">
+      <view class="icon icon--{{item.icon}} tab-bar__icon {{selected === index ? 'is-active' : ''}}"></view>
+      <text class="tab-bar__badge" wx:if="{{index === 2 && cartCount > 0}}">{{cartText}}</text>
+    </view>
+    <text class="tab-bar__text">{{item.text}}</text>
+  </view>
+  <view class="tab-bar__safe"></view>
+</view>

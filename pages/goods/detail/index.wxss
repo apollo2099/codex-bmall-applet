@@ -1,0 +1,395 @@
+.detail {
+  background: var(--canvas);
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 620rpx;
+}
+
+.hero__img {
+  width: 100%;
+  height: 100%;
+}
+
+.hero__emoji {
+  font-size: 240rpx;
+}
+
+.hero__sales {
+  position: absolute;
+  right: 24rpx;
+  bottom: 24rpx;
+  padding: 4rpx 18rpx;
+  border-radius: var(--r-pill);
+  background: rgba(30, 30, 30, 0.72);
+  color: #fff;
+  font-size: 20rpx;
+}
+
+.panel {
+  margin: 24rpx;
+  padding: 28rpx;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+}
+
+.price-main {
+  display: flex;
+  align-items: baseline;
+  color: var(--ink-1);
+  font-weight: 600;
+  letter-spacing: -0.6rpx;
+}
+
+.price-int {
+  font-size: 52rpx;
+  line-height: 1;
+}
+
+.price-dec {
+  font-size: 28rpx;
+}
+
+.save-tag {
+  margin-left: 16rpx;
+  padding: 2rpx 14rpx;
+  border: 1rpx solid rgba(242, 78, 30, 0.24);
+  border-radius: var(--r-pill);
+  background: #fef1ec;
+  color: var(--promo);
+  font-size: 20rpx;
+}
+
+.title {
+  margin-top: 22rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.4rpx;
+}
+
+.subtitle {
+  margin-top: 12rpx;
+  color: var(--ink-3);
+  font-size: 24rpx;
+}
+
+.tag-row {
+  margin-top: 20rpx;
+}
+
+.service {
+  display: flex;
+  padding: 24rpx 12rpx;
+}
+
+.service__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service__icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.service__text {
+  margin-top: 8rpx;
+  color: var(--ink-3);
+  font-size: 20rpx;
+}
+
+.cell--inner {
+  min-height: 0;
+  padding: 0;
+}
+
+.desc {
+  color: var(--ink-2);
+  font-size: 26rpx;
+  line-height: 1.7;
+}
+
+.highlight {
+  margin-top: 24rpx;
+}
+
+.highlight__item {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0;
+  color: var(--ink-2);
+  font-size: 25rpx;
+}
+
+.highlight__dot {
+  margin-right: 12rpx;
+  color: var(--figma-green);
+  font-weight: 600;
+}
+
+.params__row {
+  display: flex;
+  padding: 14rpx 0;
+  font-size: 25rpx;
+}
+
+.params__label {
+  width: 180rpx;
+  color: var(--ink-4);
+}
+
+.params__value {
+  flex: 1;
+  color: var(--ink-1);
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.related__item {
+  width: 48.5%;
+  margin-bottom: 20rpx;
+}
+
+.detail__placeholder {
+  height: 140rpx;
+}
+
+/* 底部操作栏 */
+.action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  height: 116rpx;
+  padding: 0 20rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #fff;
+  border-top: 1rpx solid var(--line-1);
+}
+
+.action-bar__icon {
+  position: relative;
+  width: 96rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--ink-3);
+}
+
+.action-bar__glyph {
+  width: 42rpx;
+  height: 42rpx;
+}
+
+.action-bar__label {
+  margin-top: 2rpx;
+  font-size: 20rpx;
+}
+
+.action-bar__badge {
+  position: absolute;
+  top: -8rpx;
+  right: 12rpx;
+  min-width: 28rpx;
+  height: 28rpx;
+  padding: 0 6rpx;
+  border-radius: 14rpx;
+  background: var(--figma-orange);
+  color: #fff;
+  font-size: 18rpx;
+  line-height: 28rpx;
+  text-align: center;
+}
+
+.action-bar__btn {
+  flex: 1;
+  height: 80rpx;
+  margin-left: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.action-bar__btn--plain {
+  background: #fff;
+  border: 1rpx solid var(--ink-1);
+  color: var(--ink-1);
+}
+
+.action-bar__btn--primary {
+  background: var(--ink-1);
+  color: #fff;
+}
+
+/* 规格弹层 */
+.sku-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 30;
+  background: rgba(30, 30, 30, 0.48);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+}
+
+.sku-mask.is-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sku {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24rpx 24rpx 0 0;
+  background: #fff;
+  transform: translateY(100%);
+  transition: transform 0.26s ease;
+}
+
+.sku-mask.is-show .sku {
+  transform: translateY(0);
+}
+
+.sku__head {
+  position: relative;
+  display: flex;
+  padding: 32rpx 32rpx 24rpx;
+}
+
+.sku__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: var(--r-sm);
+  font-size: 72rpx;
+  flex: none;
+}
+
+.sku__info {
+  flex: 1;
+  padding-left: 24rpx;
+}
+
+.sku__price {
+  display: flex;
+  align-items: baseline;
+  color: var(--ink-1);
+  font-weight: 600;
+}
+
+.sku__price-num {
+  font-size: 44rpx;
+}
+
+.sku__price-dec {
+  font-size: 26rpx;
+}
+
+.sku__stock {
+  margin-top: 8rpx;
+  color: var(--ink-4);
+  font-size: 22rpx;
+}
+
+.sku__selected {
+  margin-top: 8rpx;
+  color: var(--ink-3);
+  font-size: 24rpx;
+}
+
+.sku__close {
+  position: absolute;
+  right: 28rpx;
+  top: 24rpx;
+  color: var(--ink-4);
+  font-size: 30rpx;
+}
+
+.sku__body {
+  flex: 1;
+  max-height: 52vh;
+  padding: 0 32rpx;
+  border-top: 1rpx solid var(--line-1);
+}
+
+.sku__group {
+  padding: 24rpx 0;
+}
+
+.sku__group--row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sku__group-name {
+  margin-bottom: 18rpx;
+  color: var(--ink-1);
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.sku__group--row .sku__group-name {
+  margin-bottom: 0;
+}
+
+.sku__values {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sku__value {
+  margin: 0 16rpx 16rpx 0;
+  padding: 14rpx 30rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: var(--r-sm);
+  background: #fff;
+  color: var(--ink-2);
+  font-size: 25rpx;
+}
+
+.sku__value.is-active {
+  border-color: var(--ink-1);
+  background: var(--ink-1);
+  color: #fff;
+  font-weight: 500;
+}
+
+.sku__footer {
+  padding: 20rpx 32rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+}
+
+.sku__confirm {
+  height: 88rpx;
+}

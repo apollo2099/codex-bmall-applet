@@ -1,0 +1,46 @@
+<view class="cate">
+  <view class="cate__search" bindtap="onSearch">
+    <view class="icon icon--search cate__search-icon"></view>
+    <text>搜索商品</text>
+  </view>
+
+  <view class="cate__body">
+    <!-- 左侧分类 -->
+    <scroll-view class="cate__side" scroll-y>
+      <view
+        class="cate__side-item {{activeId === item.id ? 'is-active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onCategoryTap"
+      >
+        <view class="icon icon--{{item.icon}} cate__side-icon {{activeId === item.id ? 'is-active' : ''}}"></view>
+        <text class="cate__side-text">{{item.name}}</text>
+      </view>
+      <view class="cate__side-bottom"></view>
+    </scroll-view>
+
+    <!-- 右侧商品 -->
+    <scroll-view class="cate__main" scroll-y>
+      <view class="cate__title">
+        <text>{{activeName}}</text>
+        <text class="cate__count">共 {{goods.length}} 件</text>
+      </view>
+
+      <view class="cate__list">
+        <goods-card
+          wx:for="{{goods}}"
+          wx:key="id"
+          goods="{{item}}"
+          layout="list"
+          class="cate__item"
+          bind:tap="onGoodsTap"
+          bind:add="onAddCart"
+        />
+      </view>
+
+      <view class="loading-text" wx:if="{{loading}}">加载中…</view>
+      <view class="cate__bottom"></view>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,161 @@
+.goods-card {
+  padding: 20rpx;
+  background: var(--surface-1, #fff);
+  border: 1rpx solid var(--line-1, #e6e6e6);
+  border-radius: var(--r-md, 16rpx);
+  overflow: hidden;
+}
+
+.goods-card {
+  width: 100%;
+}
+
+.media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300rpx;
+  border-radius: var(--r-sm, 12rpx);
+  overflow: hidden;
+}
+
+.media__img {
+  width: 100%;
+  height: 100%;
+}
+
+.media__emoji {
+  font-size: 96rpx;
+}
+
+.media__badge {
+  position: absolute;
+  left: 12rpx;
+  top: 12rpx;
+  padding: 2rpx 12rpx;
+  border-radius: var(--r-pill, 999rpx);
+  background: var(--figma-orange, #f24e1e);
+  color: #fff;
+  font-size: 18rpx;
+}
+
+.media__badge--new {
+  background: var(--figma-blue, #1abcfe);
+}
+
+.info {
+  padding: 20rpx 4rpx 4rpx;
+  min-width: 0;
+}
+
+.title {
+  font-size: 26rpx;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.2rpx;
+  min-height: 72rpx;
+}
+
+.subtitle {
+  margin-top: 6rpx;
+  color: var(--ink-4, #b3b3b3);
+  font-size: 22rpx;
+}
+
+.tags {
+  margin-top: 12rpx;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  margin-top: 14rpx;
+}
+
+.footer--bottom {
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10rpx;
+}
+
+.price-wrap {
+  display: flex;
+  align-items: baseline;
+  color: var(--ink-1, #1e1e1e);
+  font-weight: 600;
+  letter-spacing: -0.4rpx;
+}
+
+.price-value {
+  font-size: 34rpx;
+  line-height: 1;
+}
+
+.price-decimal {
+  font-size: 22rpx;
+}
+
+.sales {
+  color: var(--ink-4, #b3b3b3);
+  font-size: 20rpx;
+}
+
+.origin {
+  flex: none;
+  margin-left: 16rpx;
+  color: var(--ink-4, #b3b3b3);
+  font-size: 20rpx;
+  text-decoration: line-through;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: var(--r-xs, 8rpx);
+  background: var(--ink-1, #1e1e1e);
+  color: #fff;
+  font-size: 34rpx;
+  line-height: 1;
+}
+
+/* 列表模式 */
+.goods-card--list {
+  display: flex;
+  padding: 20rpx;
+}
+
+.goods-card--list .media {
+  width: 190rpx;
+  height: 190rpx;
+  flex: none;
+  border-radius: var(--r-sm, 12rpx);
+  overflow: hidden;
+}
+
+.goods-card--list .media__emoji {
+  font-size: 72rpx;
+}
+
+.goods-card--list .info {
+  flex: 1;
+  padding: 0 0 0 20rpx;
+  min-width: 0;
+}
+
+.goods-card--list .title {
+  min-height: 0;
+}
+
+.goods-card--list .footer {
+  margin-top: 16rpx;
+}

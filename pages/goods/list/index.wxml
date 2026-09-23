@@ -1,0 +1,38 @@
+<view class="page">
+  <view class="sort-bar">
+    <view
+      class="sort-bar__item {{sort === item.key ? 'is-active' : ''}}"
+      wx:for="{{sorts}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onSortTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="list" wx:if="{{goods.length}}">
+    <goods-card
+      wx:for="{{goods}}"
+      wx:key="id"
+      goods="{{item}}"
+      layout="list"
+      class="list__item"
+      bind:tap="onGoodsTap"
+      bind:add="onAddCart"
+    />
+  </view>
+
+  <empty
+    wx:elif="{{!loading}}"
+    icon="search"
+    title="没有找到相关商品"
+    desc="换个关键词或看看其它分类吧"
+    button-text="去逛逛"
+    bind:action="onBackHome"
+  />
+
+  <view class="loading-text" wx:if="{{loading}}">加载中…</view>
+  <view class="loading-text" wx:elif="{{loadingMore}}">正在加载更多…</view>
+  <view class="loading-text" wx:elif="{{!hasMore && goods.length}}">— 已经到底啦 —</view>
+</view>

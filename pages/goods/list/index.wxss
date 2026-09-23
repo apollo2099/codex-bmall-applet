@@ -1,0 +1,45 @@
+.sort-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  height: 92rpx;
+  padding: 0 24rpx;
+  background: #fff;
+  border-bottom: 1rpx solid var(--line-1);
+}
+
+.sort-bar__item {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  color: var(--ink-3);
+  font-size: 26rpx;
+}
+
+.sort-bar__item.is-active {
+  color: var(--ink-1);
+  font-weight: 600;
+}
+
+.sort-bar__item.is-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -20rpx;
+  width: 36rpx;
+  height: 4rpx;
+  margin-left: -18rpx;
+  border-radius: 2rpx;
+  background: var(--ink-1);
+}
+
+.list {
+  padding: 24rpx;
+}
+
+.list__item {
+  display: block;
+  margin-bottom: 20rpx;
+}

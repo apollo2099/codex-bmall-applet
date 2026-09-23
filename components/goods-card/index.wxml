@@ -1,0 +1,31 @@
+<view class="goods-card goods-card--{{layout}}" bindtap="onTap">
+  <view class="media" style="background: {{goods.tint || '#eef0f3'}}">
+    <image wx:if="{{goods.cover}}" class="media__img" src="{{goods.cover}}" mode="aspectFill" />
+    <text wx:else class="media__emoji">{{goods.emoji}}</text>
+    <view wx:if="{{goods.isHot}}" class="media__badge">热销</view>
+    <view wx:elif="{{goods.isNew}}" class="media__badge media__badge--new">新品</view>
+  </view>
+
+  <view class="info">
+    <view class="title ellipsis-2">{{goods.title}}</view>
+    <view wx:if="{{goods.subTitle}}" class="subtitle ellipsis">{{goods.subTitle}}</view>
+
+    <view class="tags" wx:if="{{tags.length}}">
+      <text class="tag" wx:for="{{tags}}" wx:key="*this">{{item}}</text>
+    </view>
+
+    <view class="footer">
+      <view class="price-wrap">
+        <text class="price-symbol">¥</text>
+        <text class="price-value">{{priceInteger}}</text>
+        <text class="price-decimal">.{{priceDecimal}}</text>
+      </view>
+      <text class="origin">¥{{goods.originPrice}}</text>
+    </view>
+
+    <view class="footer footer--bottom">
+      <text class="sales">已售 {{salesText}}</text>
+      <view wx:if="{{showAdd}}" class="add-btn" catchtap="onAdd">+</view>
+    </view>
+  </view>
+</view>

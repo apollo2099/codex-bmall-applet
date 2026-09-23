@@ -1,0 +1,115 @@
+<view class="page confirm">
+  <!-- 收货地址 -->
+  <view class="card address" bindtap="onChooseAddress">
+    <block wx:if="{{address}}">
+      <view class="icon icon--location address__icon"></view>
+      <view class="address__info">
+        <view class="address__person">
+          <text class="address__name">{{address.name}}</text>
+          <text class="address__phone">{{address.phone}}</text>
+          <text class="address__default" wx:if="{{address.isDefault}}">默认</text>
+        </view>
+        <view class="address__detail">{{address.province}}{{address.city}}{{address.district}}{{address.detail}}</view>
+      </view>
+      <view class="arrow"></view>
+    </block>
+
+    <block wx:else>
+      <view class="icon icon--location address__icon"></view>
+      <view class="address__info">
+        <view class="address__empty">请添加收货地址</view>
+        <view class="address__detail">点击填写收货人信息</view>
+      </view>
+      <view class="arrow"></view>
+    </block>
+  </view>
+
+  <!-- 商品清单 -->
+  <view class="card goods">
+    <view class="goods__head">
+      <text>商品清单</text>
+      <text class="goods__count">共 {{totalCount}} 件</text>
+    </view>
+    <view class="goods__item" wx:for="{{goods}}" wx:key="goodsId">
+      <view class="goods__media" style="background: {{item.tint}}">
+        <text class="goods__emoji">{{item.emoji}}</text>
+      </view>
+      <view class="goods__info">
+        <view class="goods__title ellipsis-2">{{item.title}}</view>
+        <view class="goods__spec">{{item.spec}}</view>
+        <view class="goods__bottom">
+          <view class="goods__price">
+            <text class="price-symbol">¥</text><text class="goods__price-num">{{item.price}}</text>
+          </view>
+          <text class="goods__qty">×{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 金额明细 -->
+  <view class="card panel">
+    <view class="amount-row">
+      <text class="amount-row__label">商品金额</text>
+      <text class="amount-row__value">¥{{goodsAmount}}</text>
+    </view>
+    <view class="amount-row">
+      <text class="amount-row__label">运费</text>
+      <text class="amount-row__value">{{freight === '0.00' ? '包邮' : '¥' + freight}}</text>
+    </view>
+    <view class="amount-row">
+      <text class="amount-row__label">满减优惠</text>
+      <text class="amount-row__value amount-row__value--red">-¥{{discount}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="amount-row amount-row--total">
+      <text class="amount-row__label">实付金额</text>
+      <text class="amount-row__total">¥{{payAmount}}</text>
+    </view>
+  </view>
+
+  <!-- 支付方式 -->
+  <view class="card panel">
+    <view class="panel__title">支付方式</view>
+    <view
+      class="pay-item"
+      wx:for="{{payMethods}}"
+      wx:key="*this"
+      data-method="{{item}}"
+      bindtap="onPayMethodTap"
+    >
+      <view class="icon icon--{{item === '微信支付' ? 'wechat' : 'wallet'}} pay-item__icon"></view>
+      <text class="pay-item__text">{{item}}</text>
+      <view class="checkbox {{payMethod === item ? 'is-checked' : ''}}">
+        <text wx:if="{{payMethod === item}}">✓</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="card panel">
+    <view class="panel__title">订单备注</view>
+    <textarea
+      class="remark"
+      placeholder="选填，如：放快递柜、不要打电话"
+      placeholder-class="remark__placeholder"
+      maxlength="60"
+      value="{{remark}}"
+      bindinput="onRemarkInput"
+    />
+  </view>
+
+  <view class="confirm__placeholder"></view>
+
+  <!-- 提交栏 -->
+  <view class="submit-bar">
+    <view class="submit-bar__amount">
+      <text class="submit-bar__label">实付</text>
+      <text class="submit-bar__symbol">¥</text>
+      <text class="submit-bar__number">{{payAmount}}</text>
+    </view>
+    <view class="submit-bar__btn {{submitting ? 'disabled' : ''}}" bindtap="onSubmit">
+      {{submitting ? '提交中…' : '提交订单'}}
+    </view>
+  </view>
+</view>

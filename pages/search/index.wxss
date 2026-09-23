@@ -1,0 +1,85 @@
+.search-page {
+  padding-top: 24rpx;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx 24rpx;
+}
+
+.search-bar__input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 76rpx;
+  padding: 0 24rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: var(--r-sm);
+  background: #fff;
+}
+
+.search-bar__icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 12rpx;
+}
+
+.search-bar__input {
+  flex: 1;
+  font-size: 27rpx;
+}
+
+.search-bar__placeholder {
+  color: var(--ink-4);
+}
+
+.search-bar__clear {
+  padding: 0 6rpx;
+  color: var(--ink-4);
+  font-size: 26rpx;
+}
+
+.search-bar__btn {
+  margin-left: 20rpx;
+  padding: 0 12rpx;
+  color: var(--ink-1);
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chips__item {
+  margin: 0 16rpx 16rpx 0;
+  padding: 12rpx 26rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: var(--r-pill);
+  background: #fff;
+  color: var(--ink-2);
+  font-size: 25rpx;
+}
+
+.chips__item--hot {
+  border-color: rgba(13, 153, 255, 0.24);
+  background: #eaf6ff;
+  color: var(--link);
+}
+
+.result-title {
+  padding: 0 32rpx 16rpx;
+  color: var(--ink-3);
+  font-size: 24rpx;
+}
+
+.list {
+  padding: 0 24rpx;
+}
+
+.list__item {
+  display: block;
+  margin-bottom: 20rpx;
+}

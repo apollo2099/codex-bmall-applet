@@ -1,0 +1,84 @@
+.addr-page {
+  padding-bottom: 220rpx;
+}
+
+.tip {
+  padding: 20rpx 32rpx;
+  color: var(--ink-3);
+  font-size: 23rpx;
+}
+
+.addr-list {
+  padding: 0 24rpx;
+}
+
+.addr-item {
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.addr-item__head {
+  display: flex;
+  align-items: center;
+}
+
+.addr-item__name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.addr-item__phone {
+  margin-left: 16rpx;
+  color: var(--ink-3);
+  font-size: 26rpx;
+}
+
+.addr-item__default {
+  margin-left: 14rpx;
+  padding: 2rpx 12rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  color: var(--ink-3);
+  font-size: 18rpx;
+}
+
+.addr-item__detail {
+  margin-top: 12rpx;
+  color: var(--ink-2);
+  font-size: 25rpx;
+  line-height: 1.5;
+}
+
+.addr-item__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid var(--line-2);
+}
+
+.addr-item__action {
+  margin-left: 32rpx;
+  color: var(--ink-3);
+  font-size: 24rpx;
+}
+
+.addr-item__action--danger {
+  color: var(--promo);
+}
+
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20rpx 32rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1rpx solid var(--line-1);
+}
+
+.bottom-bar .btn-primary {
+  height: 88rpx;
+}

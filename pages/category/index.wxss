@@ -1,0 +1,143 @@
+.cate {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--canvas);
+  overflow-x: hidden;
+}
+
+.cate__search {
+  display: flex;
+  align-items: center;
+  height: 76rpx;
+  margin: 20rpx 24rpx;
+  padding: 0 24rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: var(--r-sm);
+  background: #fff;
+  color: var(--ink-4);
+  font-size: 26rpx;
+}
+
+.cate__search-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 14rpx;
+}
+
+.cate__body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-top: 1rpx solid var(--line-1);
+}
+
+/**
+ * 侧栏与列表用绝对定位分区，而不是 flex 行。
+ * 原因：微信的 scroll-view 在 flex 行内无法可靠收缩，会把商品卡片挤出屏幕
+ * （华为 Mate 20 等机型实测侧栏被压窄、卡片右侧被裁切）。
+ */
+.cate__side {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 220rpx;
+  height: 100%;
+  background: var(--canvas);
+  border-right: 1rpx solid var(--line-1);
+}
+
+.cate__side-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 104rpx;
+  padding-left: 24rpx;
+  color: var(--ink-3);
+  font-size: 26rpx;
+}
+
+.cate__side-item.is-active {
+  background: #fff;
+  color: var(--ink-1);
+  font-weight: 600;
+}
+
+.cate__side-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 6rpx;
+  height: 32rpx;
+  margin-top: -16rpx;
+  border-radius: 0 3rpx 3rpx 0;
+  background: var(--link);
+}
+
+.cate__side-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 16rpx;
+  flex: none;
+}
+
+.cate__side-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cate__side-bottom {
+  height: 200rpx;
+}
+
+.cate__main {
+  position: absolute;
+  left: 220rpx;
+  right: 0;
+  top: 0;
+  /* 显式给宽度，避免 scroll-view 自带 width:100% 或 flex 收缩行为导致溢出 */
+  width: calc(100% - 220rpx);
+  height: 100%;
+  padding: 0 20rpx;
+  background: #fff;
+}
+
+.cate__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 24rpx 8rpx 12rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  letter-spacing: -0.2rpx;
+}
+
+.cate__count {
+  color: var(--ink-4);
+  font-size: 22rpx;
+  font-weight: 400;
+}
+
+.cate__item {
+  display: block;
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.cate__bottom {
+  height: calc(180rpx + env(safe-area-inset-bottom));
+}
+
+/* 小屏机型（如 iPhone SE / 320px）收窄侧栏，给商品卡片留出足够宽度 */
+@media (max-width: 360px) {
+  .cate__side {
+    width: 184rpx;
+  }
+
+  .cate__main {
+    left: 184rpx;
+    width: calc(100% - 184rpx);
+  }
+}

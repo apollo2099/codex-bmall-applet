@@ -1,0 +1,34 @@
+<view class="page addr-page">
+  <view class="tip" wx:if="{{selectMode}}">点击地址即可用于本次订单</view>
+
+  <view class="addr-list" wx:if="{{list.length}}">
+    <view class="card addr-item" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="onSelect">
+      <view class="addr-item__head">
+        <text class="addr-item__name">{{item.name}}</text>
+        <text class="addr-item__phone">{{item.phone}}</text>
+        <text class="addr-item__default" wx:if="{{item.isDefault}}">默认</text>
+      </view>
+      <view class="addr-item__detail">{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</view>
+      <view class="addr-item__actions" catchtap="noop">
+        <view wx:if="{{!item.isDefault}}" class="addr-item__action" data-id="{{item.id}}" catchtap="onSetDefault">设为默认</view>
+        <view class="addr-item__action" data-id="{{item.id}}" catchtap="onEdit">编辑</view>
+        <view class="addr-item__action addr-item__action--danger" data-id="{{item.id}}" catchtap="onDelete">删除</view>
+      </view>
+    </view>
+  </view>
+
+  <empty
+    wx:elif="{{!loading}}"
+    icon="location"
+    title="还没有收货地址"
+    desc="添加地址后下单更方便"
+    button-text="新增地址"
+    bind:action="onAdd"
+  />
+
+  <view class="loading-text" wx:if="{{loading}}">加载中…</view>
+
+  <view class="bottom-bar">
+    <view class="btn-primary" bindtap="onAdd">+ 新增收货地址</view>
+  </view>
+</view>

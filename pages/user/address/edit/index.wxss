@@ -1,0 +1,76 @@
+.form {
+  margin: 24rpx;
+  padding: 0 28rpx;
+}
+
+.form__row {
+  display: flex;
+  align-items: center;
+  min-height: 112rpx;
+  border-bottom: 1rpx solid var(--line-2);
+}
+
+.form__row:last-child {
+  border-bottom: none;
+}
+
+.form__label {
+  width: 180rpx;
+  color: var(--ink-1);
+  font-size: 28rpx;
+}
+
+.form__input {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.form__value {
+  flex: 1;
+  color: var(--ink-1);
+  font-size: 28rpx;
+}
+
+.form__value.is-placeholder,
+.form__placeholder {
+  color: var(--ink-4);
+}
+
+.form__row--textarea {
+  align-items: flex-start;
+  padding: 28rpx 0;
+}
+
+.form__textarea {
+  flex: 1;
+  height: 120rpx;
+  font-size: 28rpx;
+}
+
+.form__row--switch {
+  justify-content: space-between;
+}
+
+.form__row--switch .form__label {
+  width: auto;
+}
+
+.hint {
+  padding: 0 44rpx;
+  color: var(--ink-3);
+  font-size: 22rpx;
+}
+
+.form-actions {
+  padding: 48rpx 32rpx;
+}
+
+.form-actions .btn-primary {
+  height: 88rpx;
+}
+
+.form-actions__delete {
+  margin-top: 24rpx;
+  height: 88rpx;
+  color: var(--ink-1);
+}

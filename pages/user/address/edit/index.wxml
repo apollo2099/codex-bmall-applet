@@ -1,0 +1,64 @@
+<view class="page edit-page">
+  <view class="card form">
+    <view class="form__row">
+      <text class="form__label">收货人</text>
+      <input
+        class="form__input"
+        placeholder="请填写收货人姓名"
+        placeholder-class="form__placeholder"
+        value="{{form.name}}"
+        data-field="name"
+        bindinput="onInput"
+      />
+    </view>
+
+    <view class="form__row">
+      <text class="form__label">手机号</text>
+      <input
+        class="form__input"
+        type="number"
+        maxlength="11"
+        placeholder="请填写 11 位手机号"
+        placeholder-class="form__placeholder"
+        value="{{form.phone}}"
+        data-field="phone"
+        bindinput="onInput"
+      />
+    </view>
+
+    <picker mode="region" value="{{region}}" bindchange="onRegionChange">
+      <view class="form__row">
+        <text class="form__label">所在地区</text>
+        <view class="form__value {{form.province ? '' : 'is-placeholder'}}">{{regionText}}</view>
+        <view class="arrow"></view>
+      </view>
+    </picker>
+
+    <view class="form__row form__row--textarea">
+      <text class="form__label">详细地址</text>
+      <textarea
+        class="form__textarea"
+        placeholder="街道、门牌号、楼层等"
+        placeholder-class="form__placeholder"
+        maxlength="80"
+        value="{{form.detail}}"
+        data-field="detail"
+        bindinput="onInput"
+      />
+    </view>
+
+    <view class="form__row form__row--switch">
+      <text class="form__label">设为默认地址</text>
+      <switch color="#1e1e1e" checked="{{form.isDefault}}" bindchange="onDefaultChange" />
+    </view>
+  </view>
+
+  <view class="hint">默认地址会在下单时自动带出，可随时修改。</view>
+
+  <view class="form-actions">
+    <view class="btn-primary {{submitting ? 'disabled' : ''}}" bindtap="onSave">
+      {{submitting ? '保存中…' : '保存地址'}}
+    </view>
+    <view class="btn-plain form-actions__delete" wx:if="{{isEdit}}" bindtap="onDelete">删除地址</view>
+  </view>
+</view>

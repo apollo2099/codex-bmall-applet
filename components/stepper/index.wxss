@@ -1,0 +1,50 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  border: 1rpx solid var(--line-1, #e6e6e6);
+  border-radius: var(--r-sm, 12rpx);
+  overflow: hidden;
+  background: #fff;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2, #fafafa);
+  color: var(--ink-1, #1e1e1e);
+  font-weight: 500;
+}
+
+.btn--disabled {
+  color: var(--ink-4, #b3b3b3);
+}
+
+.input {
+  text-align: center;
+  color: var(--ink-1, #1e1e1e);
+  background: #fff;
+  height: 100%;
+}
+
+.stepper--small .btn {
+  width: 54rpx;
+  height: 54rpx;
+  font-size: 28rpx;
+}
+
+.stepper--small .input {
+  width: 72rpx;
+  font-size: 26rpx;
+}
+
+.stepper--normal .btn {
+  width: 70rpx;
+  height: 70rpx;
+  font-size: 32rpx;
+}
+
+.stepper--normal .input {
+  width: 96rpx;
+  font-size: 30rpx;
+}

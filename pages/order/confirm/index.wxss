@@ -1,0 +1,291 @@
+.confirm {
+  padding: 24rpx 0 0;
+}
+
+.address {
+  display: flex;
+  align-items: center;
+  margin: 0 24rpx 24rpx;
+  padding: 32rpx 28rpx;
+}
+
+.address__icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.address__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.address__person {
+  display: flex;
+  align-items: center;
+}
+
+.address__name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.address__phone {
+  margin-left: 16rpx;
+  color: var(--ink-3);
+  font-size: 26rpx;
+}
+
+.address__default {
+  margin-left: 12rpx;
+  padding: 2rpx 12rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  color: var(--ink-3);
+  font-size: 18rpx;
+}
+
+.address__detail {
+  margin-top: 10rpx;
+  color: var(--ink-3);
+  font-size: 25rpx;
+  line-height: 1.5;
+}
+
+.address__empty {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.goods {
+  margin: 0 24rpx 24rpx;
+  padding: 28rpx;
+}
+
+.goods__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  letter-spacing: -0.2rpx;
+}
+
+.goods__count {
+  color: var(--ink-4);
+  font-size: 22rpx;
+  font-weight: 400;
+}
+
+.goods__item {
+  display: flex;
+  padding: 16rpx 0;
+}
+
+.goods__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: var(--r-sm);
+  flex: none;
+}
+
+.goods__emoji {
+  font-size: 58rpx;
+}
+
+.goods__info {
+  flex: 1;
+  min-width: 0;
+  padding-left: 20rpx;
+}
+
+.goods__title {
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.goods__spec {
+  margin-top: 8rpx;
+  color: var(--ink-4);
+  font-size: 22rpx;
+}
+
+.goods__bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 16rpx;
+}
+
+.goods__price {
+  display: flex;
+  align-items: baseline;
+  color: var(--ink-1);
+  font-weight: 600;
+}
+
+.goods__price-num {
+  font-size: 32rpx;
+}
+
+.goods__qty {
+  color: var(--ink-4);
+  font-size: 24rpx;
+}
+
+.panel {
+  margin: 0 24rpx 24rpx;
+  padding: 28rpx;
+}
+
+.panel__title {
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+}
+
+.amount-row__label {
+  color: var(--ink-3);
+  font-size: 26rpx;
+}
+
+.amount-row__value {
+  font-size: 26rpx;
+}
+
+.amount-row__value--red {
+  color: var(--promo);
+}
+
+.amount-row--total .amount-row__label {
+  color: var(--ink-1);
+  font-weight: 600;
+}
+
+.amount-row__total {
+  color: var(--ink-1);
+  font-size: 36rpx;
+  font-weight: 600;
+  letter-spacing: -0.4rpx;
+}
+
+.pay-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+}
+
+.pay-item__icon {
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 14rpx;
+}
+
+.pay-item__text {
+  flex: 1;
+  font-size: 27rpx;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38rpx;
+  height: 38rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: var(--r-xs);
+  background: #fff;
+  color: #fff;
+  font-size: 22rpx;
+}
+
+.checkbox.is-checked {
+  background: var(--ink-1);
+  border-color: var(--ink-1);
+}
+
+.remark {
+  width: 100%;
+  height: 130rpx;
+  padding: 20rpx;
+  border: 1rpx solid var(--line-1);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  font-size: 26rpx;
+}
+
+.remark__placeholder {
+  color: var(--ink-4);
+}
+
+.confirm__placeholder {
+  height: 180rpx;
+}
+
+.submit-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 120rpx;
+  padding: 0 28rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #fff;
+  border-top: 1rpx solid var(--line-1);
+}
+
+.submit-bar__amount {
+  display: flex;
+  align-items: baseline;
+}
+
+.submit-bar__label {
+  margin-right: 10rpx;
+  color: var(--ink-3);
+  font-size: 25rpx;
+}
+
+.submit-bar__symbol {
+  color: var(--ink-1);
+  font-size: 26rpx;
+}
+
+.submit-bar__number {
+  color: var(--ink-1);
+  font-size: 42rpx;
+  font-weight: 600;
+  letter-spacing: -0.6rpx;
+}
+
+.submit-bar__btn {
+  min-width: 240rpx;
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  background: var(--ink-1);
+  color: #fff;
+  font-size: 29rpx;
+  font-weight: 500;
+}
+
+.submit-bar__btn.disabled {
+  opacity: 0.6;
+}

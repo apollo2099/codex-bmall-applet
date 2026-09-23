@@ -1,0 +1,71 @@
+<view class="page search-page">
+  <!-- 搜索框 -->
+  <view class="search-bar">
+    <view class="search-bar__input-wrap">
+      <view class="icon icon--search search-bar__icon"></view>
+      <input
+        class="search-bar__input"
+        placeholder="搜索商品名称、关键词"
+        placeholder-class="search-bar__placeholder"
+        value="{{keyword}}"
+        confirm-type="search"
+        bindinput="onInput"
+        bindconfirm="onConfirm"
+      />
+      <text class="search-bar__clear" wx:if="{{keyword}}" bindtap="onClearKeyword">✕</text>
+    </view>
+    <view class="search-bar__btn" bindtap="onConfirm">搜索</view>
+  </view>
+
+  <!-- 搜索前：历史 + 热门 -->
+  <block wx:if="{{!searched}}">
+    <view class="section" wx:if="{{history.length}}">
+      <view class="section-title">
+        <text>搜索历史</text>
+        <text class="more" bindtap="onClearHistory">清空</text>
+      </view>
+      <view class="chips">
+        <view class="chips__item" wx:for="{{history}}" wx:key="*this" data-word="{{item}}" bindtap="onHistoryTap">
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">
+        <text>热门搜索</text>
+        <text class="more">大家都在搜</text>
+      </view>
+      <view class="chips">
+        <view class="chips__item chips__item--hot" wx:for="{{hotWords}}" wx:key="*this" data-word="{{item}}" bindtap="onHotTap">
+          {{item}}
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 搜索结果 -->
+  <block wx:else>
+    <view class="result-title" wx:if="{{results.length}}">找到 {{results.length}} 件相关商品</view>
+    <view class="list" wx:if="{{results.length}}">
+      <goods-card
+        wx:for="{{results}}"
+        wx:key="id"
+        goods="{{item}}"
+        layout="list"
+        class="list__item"
+        bind:tap="onGoodsTap"
+        bind:add="onAddCart"
+      />
+    </view>
+
+    <empty
+      wx:elif="{{!loading}}"
+      icon="search"
+      title="没有找到相关商品"
+      desc="换个关键词试试，比如「耳机」「卫衣」"
+    />
+
+    <view class="loading-text" wx:if="{{loading}}">搜索中…</view>
+  </block>
+</view>

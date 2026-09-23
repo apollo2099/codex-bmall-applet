@@ -1,0 +1,104 @@
+<view class="page page-with-bar">
+  <!-- 搜索栏 -->
+  <view class="header">
+    <view class="header__brand">
+      <view class="brand-dots">
+        <view class="dot dot--orange"></view>
+        <view class="dot dot--coral"></view>
+        <view class="dot dot--purple"></view>
+        <view class="dot dot--blue"></view>
+        <view class="dot dot--green"></view>
+      </view>
+      <text class="header__brand-text">优选集市</text>
+    </view>
+    <view class="header__bar" bindtap="onSearch">
+      <view class="icon icon--search header__icon"></view>
+      <text class="header__placeholder">搜索耳机、坚果、卫衣…</text>
+    </view>
+    <view class="header__tip">
+      <text class="header__tag">新人首单立减 20 元</text>
+      <text class="header__sub">全场满 99 包邮</text>
+    </view>
+  </view>
+
+  <!-- 轮播 -->
+  <swiper class="banner" indicator-dots indicator-color="rgba(255,255,255,.4)" indicator-active-color="#ffffff" autoplay circular interval="4000">
+    <swiper-item wx:for="{{banners}}" wx:key="id">
+      <view class="banner__item" style="background: {{item.tint}}" data-goods-id="{{item.goodsId}}" bindtap="onBannerTap">
+        <view class="banner__accent" style="background: {{item.accent}}"></view>
+        <view class="banner__text">
+          <view class="banner__title">{{item.title}}</view>
+          <view class="banner__subtitle">{{item.subtitle}}</view>
+          <view class="banner__btn">立即查看</view>
+        </view>
+        <view class="icon icon--{{item.icon}} banner__glyph icon--on-dark"></view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 分类金刚区 -->
+  <view class="section card grid-section">
+    <view class="grid">
+      <view class="grid__item" wx:for="{{categories}}" wx:key="id" data-id="{{item.id}}" bindtap="onCategoryTap">
+        <view class="grid__icon" style="background: {{item.tint}}">
+          <view class="icon icon--{{item.icon}} grid__glyph"></view>
+        </view>
+        <view class="grid__name">
+          <view class="grid__dot" style="background: {{item.accent}}"></view>
+          <text class="grid__text">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="grid__item" bindtap="onGoList">
+        <view class="grid__icon" style="background: #f0f0f0">
+          <view class="icon icon--fire grid__glyph"></view>
+        </view>
+        <view class="grid__name">
+          <view class="grid__dot" style="background: #1e1e1e"></view>
+          <text class="grid__text">全部商品</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热销榜 -->
+  <view class="section">
+    <view class="section-title">
+      <text>热销榜单</text>
+      <text class="more" bindtap="onGoList">更多 ›</text>
+    </view>
+    <scroll-view class="hot" scroll-x enable-flex>
+      <view class="hot__item" wx:for="{{hotGoods}}" wx:key="id" data-id="{{item.id}}" bindtap="onGoodsTap">
+        <view class="hot__media" style="background: {{item.tint}}">
+          <text class="hot__emoji">{{item.emoji}}</text>
+          <view class="hot__rank">TOP {{index + 1}}</view>
+        </view>
+        <view class="hot__title ellipsis">{{item.title}}</view>
+        <view class="hot__price">
+          <text class="price-symbol">¥</text><text class="hot__price-num">{{item.price}}</text>
+        </view>
+        <view class="hot__sales">已售 {{item.salesText}}</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 猜你喜欢 -->
+  <view class="section">
+    <view class="section-title">
+      <text>猜你喜欢</text>
+      <text class="more">为你精选</text>
+    </view>
+    <view class="feed">
+      <goods-card
+        wx:for="{{feed}}"
+        wx:key="id"
+        goods="{{item}}"
+        layout="grid"
+        class="feed__item"
+        bind:tap="onGoodsTap"
+        bind:add="onAddCart"
+      />
+    </view>
+    <view class="loading-text" wx:if="{{loadingMore}}">正在加载更多…</view>
+    <view class="loading-text" wx:elif="{{!hasMore && feed.length}}">— 已经到底啦 —</view>
+  </view>
+</view>

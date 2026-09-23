@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "购物车",
+  "usingComponents": {
+    "stepper": "/components/stepper/index",
+    "empty": "/components/empty/index",
+    "goods-card": "/components/goods-card/index"
+  }
+}

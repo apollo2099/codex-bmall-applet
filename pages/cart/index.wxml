@@ -1,0 +1,113 @@
+<view class="page cart-page">
+  <block wx:if="{{list.length}}">
+    <view class="topbar">
+      <text class="topbar__count">共 {{list.length}} 件商品</text>
+      <text class="topbar__edit" bindtap="onToggleEdit">{{editing ? '完成' : '编辑'}}</text>
+    </view>
+
+    <view class="cart-list">
+      <view class="cart-item card" wx:for="{{list}}" wx:key="key">
+        <view
+          class="checkbox {{item.selected ? 'is-checked' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="onToggleItem"
+        >
+          <text wx:if="{{item.selected}}">✓</text>
+        </view>
+
+        <view class="cart-item__media" style="background: {{item.tint}}">
+          <image wx:if="{{item.cover}}" class="cart-item__img" src="{{item.cover}}" mode="aspectFill" />
+          <text wx:else class="cart-item__emoji">{{item.emoji}}</text>
+        </view>
+
+        <view class="cart-item__info">
+          <view class="cart-item__title ellipsis-2">{{item.title}}</view>
+          <view class="cart-item__spec">{{item.spec}}</view>
+          <view class="cart-item__bottom">
+            <view class="cart-item__price">
+              <text class="price-symbol">¥</text>
+              <text class="cart-item__price-num">{{item.price}}</text>
+            </view>
+            <stepper
+              value="{{item.count}}"
+              min="{{1}}"
+              max="{{item.stock}}"
+              size="small"
+              data-key="{{item.key}}"
+              bind:change="onCountChange"
+            />
+          </view>
+          <view class="cart-item__foot">
+            <text class="cart-item__subtotal">小计 ¥{{item.subtotal}}</text>
+            <text class="cart-item__delete" data-key="{{item.key}}" bindtap="onRemoveItem">删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="recommend section">
+      <view class="section-title">为你推荐</view>
+      <view class="recommend__grid">
+        <goods-card
+          wx:for="{{recommend}}"
+          wx:key="id"
+          goods="{{item}}"
+          layout="grid"
+          class="recommend__item"
+          bind:tap="onGoodsTap"
+          bind:add="onAddRecommend"
+        />
+      </view>
+    </view>
+
+    <!-- 结算栏 -->
+    <view class="settle">
+      <view class="settle__all" bindtap="onToggleAll">
+        <view class="checkbox {{allSelected ? 'is-checked' : ''}}">
+          <text wx:if="{{allSelected}}">✓</text>
+        </view>
+        <text class="settle__all-text">全选</text>
+      </view>
+
+      <block wx:if="{{!editing}}">
+        <view class="settle__amount">
+          <text class="settle__label">合计</text>
+          <text class="settle__symbol">¥</text>
+          <text class="settle__number">{{totalAmount}}</text>
+        </view>
+        <view class="settle__btn {{selectedCount ? '' : 'disabled'}}" bindtap="onCheckout">
+          结算{{selectedCount ? '(' + selectedCount + ')' : ''}}
+        </view>
+      </block>
+
+      <block wx:else>
+        <view class="settle__btn settle__btn--danger" bindtap="onRemoveSelected">删除所选</view>
+      </block>
+    </view>
+  </block>
+
+  <block wx:else>
+    <empty
+      icon="cart"
+      title="购物车还是空的"
+      desc="挑选喜欢的商品，一起结算更方便"
+      button-text="去逛逛"
+      bind:action="onGoShopping"
+    />
+
+    <view class="recommend section" wx:if="{{recommend.length}}">
+      <view class="section-title">为你推荐</view>
+      <view class="recommend__grid">
+        <goods-card
+          wx:for="{{recommend}}"
+          wx:key="id"
+          goods="{{item}}"
+          layout="grid"
+          class="recommend__item"
+          bind:tap="onGoodsTap"
+          bind:add="onAddRecommend"
+        />
+      </view>
+    </view>
+  </block>
+</view>

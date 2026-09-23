@@ -1,0 +1,63 @@
+<view class="page">
+  <!-- 状态筛选 -->
+  <view class="tabs">
+    <view
+      class="tabs__item {{status === item.key ? 'is-active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onTabTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="order-list" wx:if="{{orders.length}}">
+    <view class="order card" wx:for="{{orders}}" wx:key="id" data-id="{{item.id}}" bindtap="onOrderTap">
+      <view class="order__head">
+        <text class="order__no">订单号 {{item.orderNo}}</text>
+        <text class="order__status status--{{item.status}}">{{item.statusText}}</text>
+      </view>
+
+      <view class="order__goods">
+        <view class="order__goods-item" wx:for="{{item.goods}}" wx:for-item="goods" wx:key="goodsId">
+          <view class="order__media" style="background: {{goods.tint}}">
+            <text class="order__emoji">{{goods.emoji}}</text>
+          </view>
+          <view class="order__info">
+            <view class="order__title ellipsis-2">{{goods.title}}</view>
+            <view class="order__spec">{{goods.spec}}</view>
+          </view>
+          <view class="order__price-col">
+            <text class="order__price">¥{{goods.price}}</text>
+            <text class="order__qty">×{{goods.count}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="order__summary">
+        <text class="order__time">{{item.createTimeText}} 下单</text>
+        <text class="order__amount">共 {{item.count}} 件 · 实付 <text class="order__amount-num">¥{{item.payAmount}}</text></text>
+      </view>
+
+      <view class="order__actions" catchtap="noop">
+        <view wx:if="{{item.canCancel}}" class="order__btn" data-id="{{item.id}}" catchtap="onCancel">取消订单</view>
+        <view wx:if="{{item.canPay}}" class="order__btn order__btn--primary" data-id="{{item.id}}" catchtap="onPay">去支付</view>
+        <view wx:if="{{item.canConfirm}}" class="order__btn order__btn--primary" data-id="{{item.id}}" catchtap="onConfirmReceive">确认收货</view>
+        <view wx:if="{{item.canRebuy}}" class="order__btn" data-id="{{item.id}}" catchtap="onRebuy">再次购买</view>
+        <view wx:if="{{item.canDelete}}" class="order__btn" data-id="{{item.id}}" catchtap="onDelete">删除订单</view>
+      </view>
+    </view>
+  </view>
+
+  <empty
+    wx:elif="{{!loading}}"
+    icon="box"
+    title="还没有相关订单"
+    desc="逛逛喜欢的商品，下单后可在这里查看"
+    button-text="去逛逛"
+    bind:action="onGoShopping"
+  />
+
+  <view class="loading-text" wx:if="{{loading}}">加载中…</view>
+</view>
