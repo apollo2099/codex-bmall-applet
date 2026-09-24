@@ -30,17 +30,31 @@ Page({
       this.getTabBar().refreshBadge()
     }
     this.refreshUser()
-    this.loadCounts()
+    if (userService.isLogin()) {
+      this.loadCounts()
+    } else {
+      this.setData({ counts: { pending: 0, receiving: 0, done: 0 } })
+    }
   },
 
   refreshUser() {
     const isLogin = userService.isLogin()
     const user = isLogin ? userService.getCachedUser() : null
-    this.setData({ isLogin, user })
+    this.setData({
+      isLogin,
+      user,
+      phoneText: user ? String(user.phone || '').replace(/(\d{3})\d{4}(\d{4})/, '$1****$2') : ''
+    })
     if (isLogin) {
       userService
         .getProfile()
-        .then((profile) => this.setData({ user: profile }))
+        .then((profile) => {
+          if (!profile) return
+          this.setData({
+            user: profile,
+            phoneText: String(profile.phone || '').replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
+          })
+        })
         .catch(() => {})
     }
   },
@@ -52,15 +66,39 @@ Page({
       .catch(() => {})
   },
 
+  /**
+   * 登录：输入手机号后调用后端 /auth/login
+   * 未注册的手机号后端会自动创建用户
+   */
   onLogin() {
-    userService
-      .login()
-      .then((user) => {
-        getApp().globalData.userInfo = user
-        this.setData({ isLogin: true, user })
-        toast('登录成功', 'success')
-      })
-      .catch(() => toast('登录失败'))
+    wx.showModal({
+      title: '手机号登录',
+      editable: true,
+      placeholderText: userService.DEMO_PHONE,
+      confirmColor: '#1e1e1e',
+      success: (res) => {
+        if (!res.confirm) return
+        const phone = (res.content || '').trim() || userService.DEMO_PHONE
+        if (!/^1[3-9]\d{9}$/.test(phone)) {
+          toast('手机号格式不正确')
+          return
+        }
+        wx.showLoading({ title: '登录中', mask: true })
+        userService
+          .login(phone)
+          .then((user) => {
+            wx.hideLoading()
+            getApp().globalData.userInfo = user
+            this.refreshUser()
+            this.loadCounts()
+            toast('登录成功', 'success')
+          })
+          .catch((err) => {
+            wx.hideLoading()
+            toast(err.message || '登录失败')
+          })
+      }
+    })
   },
 
   onLogout() {
@@ -83,16 +121,28 @@ Page({
 
   onOrderEntry(e) {
     const { key } = e.currentTarget.dataset
+    if (!userService.isLogin()) {
+      toast('请先登录')
+      return
+    }
     wx.navigateTo({ url: `/pages/order/list/index?status=${key}` })
   },
 
   onToolTap(e) {
     const { key } = e.currentTarget.dataset
     if (key === 'address') {
+      if (!userService.isLogin()) {
+        toast('请先登录')
+        return
+      }
       wx.navigateTo({ url: '/pages/user/address/index' })
       return
     }
     if (key === 'profile') {
+      if (!userService.isLogin()) {
+        toast('请先登录')
+        return
+      }
       wx.navigateTo({ url: '/pages/user/profile/index' })
       return
     }

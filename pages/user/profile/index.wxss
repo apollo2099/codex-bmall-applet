@@ -58,6 +58,11 @@
   font-size: 27rpx;
 }
 
+.field__value--weak {
+  color: var(--ink-4);
+  font-size: 24rpx;
+}
+
 .btn-primary {
   height: 88rpx;
 }

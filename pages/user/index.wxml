@@ -5,29 +5,19 @@
       <view class="avatar">{{isLogin ? (user.avatarEmoji || '🙂') : '👤'}}</view>
       <view class="profile-header__info">
         <view class="profile-header__name">{{isLogin ? user.nickname : '点击登录'}}</view>
-        <view class="profile-header__sub">
-          {{isLogin ? user.level + ' · ID ' + user.id : '登录后可查看订单与优惠券'}}
-        </view>
+        <view class="profile-header__sub">{{isLogin ? 'ID ' + user.id : '登录后可查看订单与收货地址'}}</view>
       </view>
       <view class="arrow arrow--light"></view>
     </view>
 
-    <view class="stats">
-      <view class="stats__item">
-        <text class="stats__num">{{isLogin ? user.points : '—'}}</text>
-        <text class="stats__label">积分</text>
+    <view class="user-meta">
+      <view class="user-meta__item">
+        <text class="user-meta__label">手机号</text>
+        <text class="user-meta__value">{{isLogin ? phoneText : '未登录'}}</text>
       </view>
-      <view class="stats__item">
-        <text class="stats__num">{{isLogin ? user.couponCount : '—'}}</text>
-        <text class="stats__label">优惠券</text>
-      </view>
-      <view class="stats__item">
-        <text class="stats__num">{{isLogin ? user.balance : '—'}}</text>
-        <text class="stats__label">余额</text>
-      </view>
-      <view class="stats__item">
-        <text class="stats__num">{{isLogin ? user.favorites : '—'}}</text>
-        <text class="stats__label">收藏</text>
+      <view class="user-meta__item">
+        <text class="user-meta__label">用户 ID</text>
+        <text class="user-meta__value">{{isLogin ? user.id : '—'}}</text>
       </view>
     </view>
   </view>
@@ -51,24 +41,6 @@
           <text class="order-card__badge" wx:if="{{item.key !== 'all' && counts[item.key] > 0}}">{{counts[item.key]}}</text>
         </view>
         <text class="order-card__label">{{item.label}}</text>
-      </view>
-    </view>
-  </view>
-
-  <!-- 会员权益 -->
-  <view class="card section benefit">
-    <view class="benefit__item">
-      <view class="icon icon--gift benefit__icon"></view>
-      <view>
-        <view class="benefit__title">新人礼包</view>
-        <view class="benefit__desc">首单立减 20 元</view>
-      </view>
-    </view>
-    <view class="benefit__item">
-      <view class="icon icon--arrow-up benefit__icon"></view>
-      <view>
-        <view class="benefit__title">极速退款</view>
-        <view class="benefit__desc">退货包运费</view>
       </view>
     </view>
   </view>

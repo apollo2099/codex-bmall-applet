@@ -88,12 +88,24 @@ Page({
     }
 
     this.setData({ submitting: true })
+    // 运费与优惠由后端统一计算，这里只提交商品与收货信息
+    const items = this.data.goods.map((item) => ({
+      productId: Number(item.goodsId),
+      count: item.count,
+      spec: item.spec
+    }))
+    const address = this.data.address
     orderService
       .createOrder({
-        goods: this.data.goods,
-        address: this.data.address,
-        freight: Number(this.data.freight),
-        discount: Number(this.data.discount),
+        items,
+        address: {
+          name: address.name,
+          phone: address.phone,
+          province: address.province,
+          city: address.city,
+          district: address.district,
+          detail: address.detail
+        },
         remark: this.data.remark,
         payMethod: this.data.payMethod
       })

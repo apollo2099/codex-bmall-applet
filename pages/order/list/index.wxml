@@ -20,7 +20,7 @@
       </view>
 
       <view class="order__goods">
-        <view class="order__goods-item" wx:for="{{item.goods}}" wx:for-item="goods" wx:key="goodsId">
+        <view class="order__goods-item" wx:for="{{item.items}}" wx:for-item="goods" wx:key="productId">
           <view class="order__media" style="background: {{goods.tint}}">
             <text class="order__emoji">{{goods.emoji}}</text>
           </view>
@@ -49,6 +49,15 @@
       </view>
     </view>
   </view>
+
+  <empty
+    wx:if="{{needLogin && !loading}}"
+    icon="user"
+    title="登录后查看订单"
+    desc="订单、收货地址等信息与账号绑定"
+    button-text="去登录"
+    bind:action="onGoLogin"
+  />
 
   <empty
     wx:elif="{{!loading}}"

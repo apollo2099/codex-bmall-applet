@@ -31,19 +31,43 @@ Page({
     return orderService
       .getOrderDetail(this.orderId)
       .then((order) => {
+        const receiver = {
+          name: order.receiverName,
+          phone: order.receiverPhone,
+          address: order.receiverAddress
+        }
         this.setData({
-          order,
+          order: Object.assign({}, order, { items: order.items || [], receiver }),
           statusDesc: STATUS_DESC[order.status] || '',
-          timeline: (order.timeline || [])
-            .slice()
-            .reverse()
-            .map((item) => Object.assign({}, item, { timeText: formatTime(item.time) })),
+          timeline: this.buildTimeline(order),
           createTimeText: formatTime(order.createdAt),
-          payTimeText: order.payTime ? formatTime(order.payTime) : '—'
+          payTimeText: order.paidAt ? formatTime(order.paidAt) : '—'
         })
       })
-      .catch(() => toast('订单加载失败'))
+      .catch((err) => toast(err.message || '订单加载失败'))
       .then(() => this.setData({ loading: false }))
+  },
+
+  /**
+   * 用订单的真实时间节点构建状态时间轴（只展示后端已有的时间，不臆造）
+   * @param {Object} order 订单
+   * @returns {Array<Object>} 时间轴（倒序）
+   */
+  buildTimeline(order) {
+    const timeline = []
+    if (order.createdAt) {
+      timeline.push({ text: '订单已提交', timeText: formatTime(order.createdAt) })
+    }
+    if (order.paidAt) {
+      timeline.push({ text: '支付成功', timeText: formatTime(order.paidAt) })
+    }
+    if (order.status === 'canceled') {
+      timeline.push({ text: '订单已取消' })
+    }
+    if (order.finishedAt) {
+      timeline.push({ text: '交易完成', timeText: formatTime(order.finishedAt) })
+    }
+    return timeline.reverse()
   },
 
   onCopyOrderNo() {
@@ -102,10 +126,10 @@ Page({
   },
 
   onRebuy() {
-    this.data.order.goods.forEach((item) => {
+    ;(this.data.order.items || []).forEach((item) => {
       cart.add(
         {
-          id: item.goodsId,
+          id: item.productId,
           title: item.title,
           subTitle: item.subTitle,
           emoji: item.emoji,

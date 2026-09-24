@@ -44,30 +44,30 @@
   border-color: var(--ink-4);
 }
 
-.stats {
+/* 账号信息：只展示后端真实存在的字段 */
+.user-meta {
   display: flex;
-  padding: 28rpx 0;
+  padding: 24rpx 0;
   margin-bottom: -1rpx;
   border-top: 1rpx solid var(--line-1);
 }
 
-.stats__item {
+.user-meta__item {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.stats__num {
-  color: var(--ink-1);
-  font-size: 32rpx;
-  font-weight: 600;
-}
-
-.stats__label {
-  margin-top: 6rpx;
+.user-meta__label {
   color: var(--ink-4);
-  font-size: 22rpx;
+  font-size: 21rpx;
+}
+
+.user-meta__value {
+  margin-top: 6rpx;
+  color: var(--ink-1);
+  font-size: 28rpx;
+  font-weight: 500;
 }
 
 .order-card {

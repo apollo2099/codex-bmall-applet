@@ -9,27 +9,25 @@
   <view class="card panel" wx:if="{{timeline.length}}">
     <view class="panel__title">物流跟踪</view>
     <view class="timeline">
-      <view class="timeline__item {{index === 0 ? 'is-latest' : ''}}" wx:for="{{timeline}}" wx:key="time">
+      <view class="timeline__item {{index === 0 ? 'is-latest' : ''}}" wx:for="{{timeline}}" wx:key="text">
         <view class="timeline__dot"></view>
         <view class="timeline__line" wx:if="{{index !== timeline.length - 1}}"></view>
         <view class="timeline__content">
           <view class="timeline__text">{{item.text}}</view>
-          <view class="timeline__time">{{item.timeText}}</view>
+          <view class="timeline__time" wx:if="{{item.timeText}}">{{item.timeText}}</view>
         </view>
       </view>
     </view>
   </view>
 
   <!-- 收货地址 -->
-  <view class="card panel" wx:if="{{order.address}}">
+  <view class="card panel" wx:if="{{order.receiver}}">
     <view class="panel__title">收货信息</view>
     <view class="addr">
       <view class="icon icon--location addr__icon"></view>
       <view class="addr__info">
-        <view class="addr__person">{{order.address.name}} {{order.address.phone}}</view>
-        <view class="addr__detail">
-          {{order.address.province}}{{order.address.city}}{{order.address.district}}{{order.address.detail}}
-        </view>
+        <view class="addr__person">{{order.receiver.name}} {{order.receiver.phone}}</view>
+        <view class="addr__detail">{{order.receiver.address}}</view>
       </view>
     </view>
   </view>
@@ -37,7 +35,7 @@
   <!-- 商品 -->
   <view class="card panel">
     <view class="panel__title">商品信息</view>
-    <view class="goods__item" wx:for="{{order.goods}}" wx:key="goodsId">
+    <view class="goods__item" wx:for="{{order.items}}" wx:key="productId">
       <view class="goods__media" style="background: {{item.tint}}">
         <text class="goods__emoji">{{item.emoji}}</text>
       </view>

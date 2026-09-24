@@ -1,5 +1,6 @@
 const orderService = require('../../../services/order')
 const cart = require('../../../services/cart')
+const userService = require('../../../services/user')
 const { toast, confirm, formatTime } = require('../../../utils/util')
 
 Page({
@@ -8,7 +9,9 @@ Page({
     status: 'all',
     orders: [],
     loading: true,
-    acting: false
+    acting: false,
+    /** 未登录时不请求订单接口，直接展示登录引导 */
+    needLogin: false
   },
 
   onLoad(options) {
@@ -25,13 +28,21 @@ Page({
   },
 
   load() {
+    if (!userService.isLogin()) {
+      this.setData({ orders: [], loading: false, needLogin: true })
+      return Promise.resolve()
+    }
+    this.setData({ needLogin: false })
     this.setData({ loading: true })
     return orderService
       .getOrders(this.data.status)
       .then((res) => {
         const orders = res.list.map((order) => {
-          const count = order.goods.reduce((sum, item) => sum + item.count, 0)
+          // 后端返回 items 作为订单明细
+          const items = order.items || []
+          const count = items.reduce((sum, item) => sum + item.count, 0)
           return Object.assign({}, order, {
+            items,
             count,
             createTimeText: formatTime(order.createdAt),
             canCancel: order.status === 'pending',
@@ -43,8 +54,13 @@ Page({
         })
         this.setData({ orders })
       })
-      .catch(() => toast('订单加载失败'))
+      .catch((err) => toast(err.message || '订单加载失败'))
       .then(() => this.setData({ loading: false }))
+  },
+
+  /** 未登录时跳转到「我的」完成登录 */
+  onGoLogin() {
+    wx.switchTab({ url: '/pages/user/index' })
   },
 
   onTabTap(e) {
@@ -114,10 +130,10 @@ Page({
   onRebuy(e) {
     const order = this.data.orders.find((item) => item.id === e.currentTarget.dataset.id)
     if (!order) return
-    order.goods.forEach((item) => {
+    ;(order.items || []).forEach((item) => {
       cart.add(
         {
-          id: item.goodsId,
+          id: item.productId,
           title: item.title,
           subTitle: item.subTitle,
           emoji: item.emoji,

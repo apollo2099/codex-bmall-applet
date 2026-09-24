@@ -8,9 +8,10 @@
 1. 打开 **微信开发者工具**，选择「导入项目」。
 2. 目录选择本文件夹（`codex-bmall-applet`）。
 3. AppID 选择「测试号」即可（项目已配置 `touristappid`）。
-4. 编译后即可使用：首次启动会写入一条历史订单和两个收货地址，方便直接体验。
+4. 编译后即可使用。**数据全部来自后端 `codex-bmall`**，请先按「四、接入真实后端」启动后端并初始化数据库；
+   若想完全离线体验，把 `services/request.js` 的 `USE_MOCK` 改为 `true` 即切换回内置模拟数据。
 
-> 项目未使用任何图片资源，商品图由「渐变底色 + emoji」占位渲染，因此离线也不会出现图片加载失败。
+> 项目未使用任何图片资源，商品图由「渐变底色 + emoji」占位渲染，因此不会出现图片加载失败。
 > 接入真实商品图后，只需给商品数据补上 `cover` 字段，页面模板无需改动。
 
 ## 二、功能清单
@@ -79,28 +80,59 @@ codex-bmall-applet/
 
 ## 四、接入真实后端
 
-1. 打开 `services/request.js`，把 `USE_MOCK` 改为 `false`。
-2. 将 `BASE_URL` 换成你的接口域名，并在小程序后台配置为 request 合法域名。
-3. 保持接口契约不变即可直接跑通；如字段有差异，在 `services/*.js` 内做一次映射即可。
+### 1. 启动后端并初始化数据
 
-模拟接口一览（与真实后端保持一致即可）：
+```bash
+# 1) 初始化数据库（本地 MySQL 8，脚本幂等）
+mysql -h127.0.0.1 -uroot -p < ../codex-bmall/db/init.sql
+# 2) 启动后端（需 JDK 17），默认端口 8080
+java -jar ../codex-bmall/target/codex-bmall-1.0.0-SNAPSHOT.jar
+```
+
+初始化脚本会写入 6 个分类、18 个商品、3 条首页轮播、1 个演示用户（手机号 `13800008888`）与 1 个收货地址。
+
+### 2. 配置请求地址
+
+打开 `services/request.js`（`USE_MOCK = false` 表示调用真实后端）：
+
+| 场景 | BASE_URL 配置 |
+| --- | --- |
+| 微信开发者工具 | `http://127.0.0.1:8080`，并勾选「详情 → 本地设置 → 不校验合法域名」 |
+| 真机调试 | 电脑局域网 IP，例如 `http://192.168.1.10:8080`，手机与电脑同一网络 |
+| 正式环境 | https 域名，并在小程序后台配置 request 合法域名 |
+
+### 3. 登录说明
+
+登录调用 `POST /auth/login`，当前使用演示手机号 `13800008888` 与固定验证码（后端暂只校验非空），
+未注册手机号后端会自动创建用户。**TODO：接入短信验证码后改为用户输入并做真实校验。**
+
+### 4. 接口一览（与 codex-bmall 实际路由一致）
 
 | 方法 | 路径 | 说明 |
 | --- | --- | --- |
 | GET | `/banners` | 首页轮播 |
 | GET | `/categories` | 分类列表 |
-| GET | `/goods` | 商品列表（categoryId / keyword / sort / page / pageSize） |
-| GET | `/goods/:id` | 商品详情（含相关推荐） |
-| GET | `/goods/hot` | 热销榜 |
+| GET | `/products` | 商品列表（categoryId / keyword / sort / page / pageSize） |
+| GET | `/products/:id` | 商品详情 |
+| GET | `/products/hot` | 热销榜（limit） |
+| GET | `/products/recommend` | 推荐商品（limit） |
 | POST | `/orders` | 创建订单 |
-| GET | `/orders` | 订单列表（status） |
-| GET | `/orders/count` | 各状态订单数量 |
+| GET | `/orders` | 订单列表（userId / status / page / pageSize） |
+| GET | `/orders/count` | 各状态订单数量（userId） |
 | GET | `/orders/:id` | 订单详情 |
-| POST | `/orders/:id/pay｜cancel｜confirm｜delete` | 订单操作 |
-| POST | `/auth/login` | 登录 |
-| GET/PUT | `/user/profile` | 用户资料 |
-| GET/POST | `/addresses` | 地址列表 / 新增 |
+| POST | `/orders/:id/pay｜cancel｜confirm` | 订单操作 |
+| DELETE | `/orders/:id` | 删除订单 |
+| POST | `/auth/login` | 登录（phone / code） |
+| GET/PUT | `/users/:id` | 用户资料 |
+| GET/POST | `/addresses` | 地址列表 / 新增（userId） |
 | PUT/DELETE | `/addresses/:id` | 地址修改 / 删除 |
+
+### 5. 字段对应关系
+
+- 订单明细字段为 `items`；收货信息为 `receiverName / receiverPhone / receiverAddress`（下单快照）
+- 订单状态时间轴由 `createdAt / paidAt / finishedAt` 三个真实时间生成，不臆造节点
+- 后端暂无商品规格（SKU）数据，详情页规格弹层只展示数量选择
+- 后端暂无积分 / 优惠券 / 余额字段，用户页改为展示手机号与用户 ID，不做假数据展示
 
 购物车数据保存在本地（`wx.setStorageSync`），如需服务端同步购物车，把 `services/cart.js` 中的读写换成接口调用即可，页面无需改动。
 

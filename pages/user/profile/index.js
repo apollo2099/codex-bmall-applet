@@ -28,7 +28,8 @@ Page({
       this.setData({
         user,
         nickname: user.nickname,
-        avatarEmoji: user.avatarEmoji,
+        // 后端字段为 avatar，这里沿用页面内的 avatarEmoji 命名
+        avatarEmoji: user.avatar || '🙂',
         phone: user.phone
       })
     })
@@ -36,10 +37,6 @@ Page({
 
   onNicknameInput(e) {
     this.setData({ nickname: e.detail.value })
-  },
-
-  onPhoneInput(e) {
-    this.setData({ phone: e.detail.value })
   },
 
   onAvatarTap(e) {
@@ -57,12 +54,11 @@ Page({
     userService
       .updateProfile({
         nickname,
-        avatarEmoji: this.data.avatarEmoji,
-        phone: this.data.phone.trim()
+        avatar: this.data.avatarEmoji
       })
       .then((user) => {
         getApp().globalData.userInfo = user
-        this.setData({ user })
+        this.setData({ user, avatarEmoji: user.avatar || this.data.avatarEmoji })
         toast('资料已更新', 'success')
       })
       .catch(() => toast('保存失败'))
